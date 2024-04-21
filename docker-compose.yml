@@ -1,0 +1,29 @@
+---
+services:
+  databases:
+      image: mysql:5.5
+      container_name: mysql-db
+      environment:
+          MYSQL_ROOT_PASSWORD: abcd@1234
+      ports:
+        - "3306:3306"
+  webserver:
+      image: php:8.2-apache
+      container_name: apache
+      ports:
+        - "80:80"
+      depends_on:
+        - databases
+      volumes:
+        - ./apache:/var/www/html
+  phpmyadmin:
+      image: phpmyadmin
+      container_name: phpmyadmin
+      ports:
+        - "8080:80"
+      depends_on:
+        - databases
+      environment:
+          PMA_HOST: 'databases'
+...
+
