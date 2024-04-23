@@ -8,7 +8,7 @@ services:
       ports:
         - "3306:3306"
   webserver:
-      image: php:8.2-apache
+      image: 4573173/webserver_php:v1
       container_name: apache
       ports:
         - "80:80"
@@ -16,11 +16,12 @@ services:
         - databases
       volumes:
         - ./apache:/var/www/html
+        - ./conf/apache.conf:/etc/apache2/sites-available/000-default.conf
   phpmyadmin:
       image: phpmyadmin
       container_name: phpmyadmin
       ports:
-        - "8080:80"
+        - "8081:80"
       depends_on:
         - databases
       environment:
